@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerFragment(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta content="Coderthemes" name="author"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>
+    <th:block th:text="${title}"/>
+  </title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/plugins/jquery-validationEngine/validationEngine.jquery.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/plugins/toastr/toastr.css}" rel="stylesheet" type="text/css">
+
+  <script th:src="@{/plugins/jquery-1.10.2.js}"></script>
+</head>
+<body>
+<div th:fragment="header-body">
+  <div id="top" class="header">
+    <div class="topBar">
+      <div class="comWidth">
+        <div class="rightBar fr">
+          欢迎 <span th:if="${session['member']} != null" th:text="${session['member'].userName}"></span> 来到明博商城网！
+          <a th:if="${session['member']} == null" th:href="@{/front/login}">登录</a>|
+          <a th:if="${session['member']} != null" th:href="@{/front/logout}">退出登录</a>
+          <a th:if="${session['member']} == null" th:href="@{/front/register}">免费注册</a>|<a th:href="@{/front/order/list}">我的订单</a>
+        </div>
+      </div>
+    </div>
+    <div class="logo">
+      <div class="comWidth">
+        <div class="logo_icon fl">
+          <a th:href="@{/front/index}"><img th:src="@{/images/logo.png}" alt="明博商城网"></a>
+        </div>
+        <div id="searchPanel" class="searchBar fr" hidden="true">
+          <div class="shopCar fl">
+            <a th:href="@{/front/cart/list}">购物车</a>
+          </div>
+          <div class="shopCar-count fl">
+            <a id="cartCount" href="#" th:text="${totalCartCount}"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="menu">
+        <div class="all-sort">
+          <h2>
+            <a>全部商品分类</a>
+          </h2>
+        </div>
+        <div class="nav">
+          <ul class="clearfix">
+            <li><a th:href="@{/front/index}" class="current">首页</a></li>
+            <!--<li><a href="#">服装城</a></li>-->
+            <!--<li><a href="#">京东超市</a></li>-->
+            <!--<li><a href="#">团购</a></li>-->
+            <!--<li><a href="#">拍卖</a></li>-->
+            <!--<li><a href="#">在线游戏</a></li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>登录</title>
+  <link rel="stylesheet" th:href="@{/css/reset.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/reg.css}" type="text/css">
+  <link th:href="@{/plugins/toastr/toastr.css}" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/plugins/jquery-validationEngine/validationEngine.jquery.css}"/>
+
+</head>
+
+<body class="grey_bg">
+<div class="header">
+  <div class="logo">
+    <div class="comWidth">
+      <div class="logo_icon fl">
+        <a th:href="@{/front/index}">
+          <img th:src="@{/images/logo.png}" alt="明博商城网">
+        </a>
+      </div>
+      <h2>欢迎注册</h2>
+    </div>
+  </div>
+  <div class="mainContent">
+    <div class="comWidth regBox">
+      <form id="memberRegisterFrom" onSubmit="return false;">
+        <div class="input-item">
+          <span>*</span>账户名:
+          <input type="text" name="userName" placeholder="邮箱/手机号/用户名" class="username validate[required]">
+        </div>
+        <div class="input-item">
+          <span>*</span>设置密码:
+          <input id="password" type="password" name="password" class="validate[required]">
+        </div>
+        <div class="input-item">
+          <span>*</span>确认密码:
+          <input id="restPassword" type="password" class="validate[required]">
+        </div>
+        <div class="input-item">
+          <span>*</span>邮箱:
+          <input name="email" class="validate[required,custom[email]]">
+        </div>
+        <div class="submit-btn">
+          <input type="submit" value="注册">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="footer cl">
+  <div class="copy-info">
+    <p>
+      <a href="#">明博简介|</a><a href="#">明博公告 |</a><a href="#">招纳贤士 |</a><a
+      href="#">联系我们 |</a>客服热线：400-675-1234
+    </p>
+    <p>Copyright&copy;2006-2016 明博科技版权所有</p>
+  </div>
+  <div class="copy-images">
+    <a href="#"><img th:src="@{/images/icon/img1.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img2.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img3.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img4.jpg}" alt="版权区图片"></a>
+  </div>
+</div>
+</body>
+<script th:src="@{/plugins/jquery-1.10.2.js}"></script>
+<script th:src="@{/plugins/jquery.form.js}"></script>
+<script th:src="@{/plugins/toastr/toastr.js}"></script>
+<!-- 表单验证插件 下载地址：https://github.com/posabsolute/jQuery-Validation-Engine-->
+<script th:src="@{/plugins/jquery-validationEngine/languages/jquery.validationEngine-zh_CN.js}"></script>
+<script th:src="@{/plugins/jquery-validationEngine/jquery.validationEngine.js}"></script>
+<script>
+  var g_rootPath = '[[${#servletContext.contextPath}]]'
+
+  $(function () {
+    var submitFormOptions = {
+      url: g_rootPath + '/front/member/save',
+      type: 'POST',
+      success: function (response) {
+        if (response.status == '0') {
+          toastr.success('账号激活链接已发送至注册邮件！')
+          window.location.href = g_rootPath + '/front/login'
+        } else {
+          toastr.warning('会员注册失败,' + response.data)
+        }
+      },
+      error: function (context, xhr) {
+        $.alert({
+          title: '出现错误',
+          content: xhr,
+          confirmButton: '确定'
+        })
+      }
+    }
+    // 提交注册表单信息
+    $('#memberRegisterFrom').submit(
+      function () {
+        var isValid = $('#memberRegisterFrom').validationEngine(
+          'validate', {
+            promptPosition: 'centerRight',
+            autoHidePrompt: true,
+            scroll: false
+          })
+
+        // 输入有效性验证未通过
+        if (!isValid) {
+          return false
+        }
+        var password = $('#password').val()
+        var restPassword = $('#restPassword').val()
+        if (password != restPassword) {
+          toastr.warning('重复密码不正确！')
+          return false
+        } else {
+          $(this).ajaxSubmit(submitFormOptions)
+        }
+
+      })
+  })
+</script>
+
+</html>

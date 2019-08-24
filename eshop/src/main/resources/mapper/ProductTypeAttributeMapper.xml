@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.product.dao.ProductTypeAttributeDaoMyBatis">
+
+  <select id="getProductTypeAttributesByProductType" resultType="ProductTypeAttributeDTO">
+    SELECT
+      pta.id,
+      pta.name,
+      pta.value
+    FROM
+      qsx_product_type_attribute pta
+    WHERE
+      pta.productType_id = #{productTypeId}
+  </select>
+
+</mapper>

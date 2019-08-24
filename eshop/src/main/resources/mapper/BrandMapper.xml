@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.brand.dao.BrandDaoMyBatis">
+
+  <select id="getBrandsByCategory" resultType="BrandDTO">
+    SELECT
+      br.id,
+      br.name
+    FROM
+      qsx_brand br,
+      qsx_product_category_brand pcb
+    WHERE
+      br.id = pcb.brand_id AND
+      pcb.category_id = #{categoryId}
+  </select>
+
+</mapper>

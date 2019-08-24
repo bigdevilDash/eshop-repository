@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.product.dao.ProductDaoMyBatis">
+
+  <select id="getHotProducts" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.price,
+      pr.productImage
+    FROM
+      qsx_product pr
+    WHERE
+      pr.isHot = 1
+    LIMIT 5
+  </select>
+
+  <select id="getNewProducts" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.price,
+      pr.productImage
+    FROM
+      qsx_product pr
+    WHERE
+      pr.isNew = 1
+    LIMIT 5
+  </select>
+
+  <select id="getBestProducts" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.price,
+      pr.productImage
+    FROM
+      qsx_product pr
+    WHERE
+      pr.isBest = 1
+    LIMIT 5
+  </select>
+
+  <select id="getProductsByCategory" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.productImage,
+      pr.marketPrice,
+      pr.productType_id AS 'productType.id',
+      (SELECT COUNT(ev.id) FROM qsx_evaluate ev WHERE ev.product_id = pr.id) AS 'evaluateCount'
+    FROM
+      qsx_product pr
+    WHERE
+      pr.productCategory_id = #{categoryId}
+  </select>
+
+  <select id="getProductsByPrice" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.productImage,
+      pr.price
+    FROM
+      qsx_product pr
+    WHERE
+      pr.price = #{price}
+  </select>
+
+  <select id="getProduct" resultType="ProductDTO">
+    SELECT
+      pr.id,
+      pr.name,
+      pr.marketPrice,
+      pr.price,
+      pr.screenshots,
+      pr.productImage,
+      pr.description
+    FROM
+      qsx_product pr
+    WHERE
+      pr.id = #{productId}
+  </select>
+
+</mapper>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('订单列表')"></header>
+<link rel="stylesheet" th:href="@{/css/product.css}" type="text/css">
+<body>
+<div th:replace="header::header-body"></div>
+<div class="mainContent comWidth">
+  <div class="leftArea fl">
+    <!-- 分类展开页面 -->
+    <div th:each="productCategory : ${productCategories}">
+      <div class="left-title">
+        <h3 th:text="${productCategory.name}"></h3>
+      </div>
+      <div class="left-item" th:each="child : ${productCategory.children}">
+        <dl>
+          <dt th:text="${child.name}"></dt>
+          <dd>
+            <a th:each="grandson : ${child.children}" th:href="@{/front/product/list(categoryId=${grandson.id})}" th:text="${grandson.name}"></a>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="rightArea fr">
+    <h2>订单列表</h2>
+    <div class="product_list">
+      <ul class="product_title">
+        <li class="pro">订单详情</li>
+        <li>总价格</li>
+        <li>状态</li>
+        <li>操作</li>
+      </ul>
+      <!-- 遍历订单列表 -->
+      <!--<c:forEach var="order" items="${orders}">-->
+      <div th:each="order : ${orders}">
+        <ul class="product_time">
+          <li th:text="${order.updateTime}"></li>
+        </ul>
+        <ul class="product_con">
+          <li class="pro">
+            <!--<c:forEach var="item" items="${order.orderItemSet}">-->
+            <img th:each="orderItem : ${order.orderItems}" th:src="${orderItem.product.productImage}">
+            <!--</c:forEach>-->
+          </li>
+          <li th:text="${order.totalAmount}"></li>
+          <li th:text="${order.status.name}"></li>
+          <!-- 根据付款状态显示不同的文字，付款的显示评价，没付款的显示去付款 -->
+          <!--<c:choose>-->
+          <!--<c:when test="${order.orderStatus.code=='ORDS_Pay'}">-->
+          <li th:if="${order.status.code} == 'ORDS_Pay'"><a th:href="@{'/front/order/detail/'+${order.id}}">评价</a></li>
+          <!--</c:when>-->
+          <!--<c:otherwise>-->
+          <li th:if="${order.status.code} != 'ORDS_Pay'"><a th:href="@{'/front/order/main/'+${order.id}}">去付款</a></li>
+          <!--</c:otherwise>-->
+          <!--</c:choose>-->
+        </ul>
+      </div>
+      <!--</c:forEach>-->
+    </div>
+  </div>
+</div>
+</body>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+</html>

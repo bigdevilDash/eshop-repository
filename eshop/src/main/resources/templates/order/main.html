@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('订单页')"></header>
+<link rel="stylesheet" th:href="@{/css/account.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/plugins/alert-confirm.css}" type="text/css">
+
+<body class="grey_bg">
+<div th:replace="header::header-body"></div>
+<div class="step-box fr">
+  <div class="step">
+    <img th:src="@{/images/account-step.jpg}" alt="完成进度条">
+  </div>
+  <a href="#" class="mycar active">我的购物车</a> <a href="#" class="check active">填写核对订单</a> <a href="#" class="complete">提交订单成功</a>
+</div>
+<div class="mainContent comWidth">
+  <div class="list-info-item cl">
+    <h4 class="title">
+      收货地址<a class="js-open-modal add_receiver" href="#" data-modal-id="popup1">添加收货地址</a>
+    </h4>
+
+    <div class="content">
+      <ul>
+        <!-- 收货人列表页面 -->
+        <!-- 如果为默认收货人则添加选中状态-->
+        <li style="margin-top: 10px;" th:each="receiver : ${receivers}">
+          <span th:if="${member.defaultReceiverId} == ${receiver.id}">
+          <a href="#"><span id="defaultReceiver" class="pull-left reciver_select" th:data-id="${receiver.id}"><span th:text="${receiver.name}"></span></span></a>
+          <span> <span th:text="${receiver.name}"></span>&nbsp;<span th:text="${receiver.areaPath}"></span>&nbsp;&nbsp;&nbsp;<span th:text="${receiver.address}"></span></span>
+          <a class="js-open-modal eidt_receiver" href="#" data-modal-id="popup1" th:data-id="${receiver.id}">
+            <span class="fr"> 编辑</span>
+          </a>
+          <a class="default_receiver" th:data-id="${receiver.id}" href="#"><span class="fr"> 默认地址</span></a>
+          <a class="delete-receiver-btn" th:data-id="${receiver.id}" href="#"><span class="fr"> 删除</span></a>
+          </span>
+          <span th:if="${member.defaultReceiverId != receiver.id}">
+          <a href="#"><span class="pull-left reciver" th:data-id="${receiver.id}"><span th:text="${receiver.name}"></span></span></a>
+          <span> <span th:text="${receiver.name}"></span>&nbsp;<span th:text="${receiver.areaPath}"></span>&nbsp;&nbsp;&nbsp;<span th:text="${receiver.address}"></span></span>
+          <a class="js-open-modal eidt_receiver" href="#" data-modal-id="popup1" th:data-id="${receiver.id}">
+            <span class="fr"> 编辑</span></a>
+          <a class="set_default_receiver" th:data-id="${receiver.id}" href="#"><span class="fr"> 设置为默认地址</span></a>
+          <a class="delete-receiver-btn" th:data-id="${receiver.id}" href="#"><span class="fr"> 删除</span></a>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup1" class="modal-box" style="top: 237px; left: 30%;"></div>
+  <div class="list-info-item cl">
+    <h4 class="title">送货清单</h4>
+    <div class="list-content">
+      <table>
+        <thead>
+        <tr>
+          <th width="40%">商品名称</th>
+          <th width="20%">单价</th>
+          <th width="20%">数量</th>
+          <th width="20%">小计</th>
+        </tr>
+        </thead>
+        <tbody id="productList">
+        <tr th:each="orderItem : ${orderItems}">
+          <td class="contentInfo-box">
+            <img th:src="${orderItem.product.productImage}" alt="产品图片" class="fl">
+            <a th:href="@{/front/product/main(productId=${orderItem.product.id})}"><span th:text="${orderItem.product.name}"></span></a>
+          </td>
+          <td style="display: table-cell; vertical-align: middle; text-align: center">￥<span th:text="${orderItem.product.price}"></span></td>
+          <td class="productCount" th:data-id="${orderItem.product.id}" th:data-count="${orderItem.productQuantity}"
+              style="display: table-cell; vertical-align: middle; text-align: center">
+            <span th:text="${orderItem.productQuantity}"></span>
+          </td>
+          <td style="display: table-cell; vertical-align: middle; text-align: center">￥<span th:text="${orderItem.totalPrice}"></span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="list-info-item cl">
+    <h4 class="title">订单结算</h4>
+    <div class="content confirm-submit">
+      <div class="subinfo fr">
+        <div class="total">
+          总计<span>￥<span th:text="${productTotalPrice}"></span></span>
+        </div>
+        <div class="total">
+          实付<span id="totalAmount">￥<span th:text="${totalAmount}"></span></span>
+        </div>
+        <input th:if="${orderId} == null" id="commitOrder" type="button" value="提交订单">
+        <input th:if="${orderId} != null" id="payOrder" type="button" value="确认付款">
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+<script th:src="@{/js/order.js}"></script>
+<script>
+  var g_rootPath = '[[${#servletContext.contextPath}]]'
+
+  $(function () {
+    //初始化订单主页面js
+    order.initMain([[${orderId}]])
+  })
+</script>
+</body>
+</html>

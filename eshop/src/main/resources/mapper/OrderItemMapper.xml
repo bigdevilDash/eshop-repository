@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.order.dao.OrderItemDaoMyBatis">
+
+  <select id="getOrderItemsByOrder" resultType="OrderItemDTO">
+    SELECT
+      oi.id,
+      oi.productQuantity,
+      pr.id AS 'product.id',
+      pr.name AS 'product.name',
+      pr.productImage AS 'product.productImage',
+      oi.totalPrice,
+      oi.order_id AS 'order.id',
+      oi.status_code AS 'status.code'
+    FROM
+      qsx_order_item oi,
+      qsx_product pr
+    WHERE
+      oi.product_id = pr.id AND
+      oi.order_id = #{orderId}
+  </select>
+  
+  <insert id="saveOrderItem">
+    INSERT INTO qsx_order_item (
+      productQuantity,
+      product_id,
+      totalPrice,
+      order_id,
+      status_code
+    ) 
+    VALUES (
+      #{productQuantity},
+      #{product.id},
+      #{totalPrice},
+      #{order.id},
+      #{status.code}
+    )
+  </insert>
+
+</mapper>

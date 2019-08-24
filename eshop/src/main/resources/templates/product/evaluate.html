@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('订单评价')"></header>
+<link rel="stylesheet" th:href="@{/css/product.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+<script th:src="@{/plugins/jquery.form.js}"></script>
+
+<body>
+<form id="evaluateForm" name="evaluate" role="form" th:action="@{/front/product/evaluate/save}" method="post" onSubmit="return false;">
+  <input type="hidden" name="id" th:value="${evaluate.id}">
+  <input name="product.id" type="hidden" th:value="${productId}" id="sebei"/>
+  <input name="orderId" type="hidden" th:value="${orderId}"/>
+  <div class="mainContent comWidth">
+    <div class="evaluation_list">
+      <ul class="evaluation_title">
+        <p>评价订单</p>
+        <li>订单时间：<span th:text="${time}"></span></li>
+      </ul>
+      <div class="evaluation_top">
+        <ul class="evaluation_top_left">
+          <li><span>商品评分</span></li>
+        </ul>
+        <div class="evaluation_top_right">
+          <h3>请点击评分</h3>
+          <div id="starBg">
+            <div class="starCon" id="star1">
+              <div class="starTitle">商品评分：</div>
+              <ul>
+                <li><a href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><a href="javascript:;">4</a></li>
+                <li><a href="javascript:;">5</a></li>
+              </ul>
+              <input type="hidden" th:value="${evaluate.score}" name="score" id="score"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="evaluation_bott">
+        <div class="evaluation_bott_left">
+          <ul class="bott_left_con">
+            <li><img th:src="${product.productImage}"><span th:text="${product.name}"></span></li>
+            <li>￥<span th:text="${product.price}"></span></li>
+          </ul>
+        </div>
+        <div class="evaluation_bott_right">
+          <h3>请填写商品的评价</h3>
+          <ul id="bott_right_con">
+          </ul>
+          <div class="fop-item ">
+            <div class="fop-label">评价晒单</div>
+            <div class="fop-main">
+              <div class="f-textarea">
+                <textarea name="description" id="message" placeholder="商品是否给力？快分享你的购买心得吧~" th:text="${evaluate.description}"></textarea>
+                <div class="textarea-ext">
+                  <em class="textarea-num"><b>0</b> / 500</em>
+                  <span class="tips">（评价多于<span class="ftc1">10</span>个字,有机会奖励京豆哦~）</span>
+                </div>
+              </div>
+            </div>
+            <div class="fop-tip">
+              <i class="tip-icon"></i><em class="tip-text"></em>
+            </div>
+          </div>
+          <div style="clear: both">
+            <button class="save-evaluate-btn" id="subComm">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+<script th:src="@{/js/evaluate.js}"></script>
+<script>
+  var g_rootPath = '[[${#servletContext.contextPath}]]'
+
+  $(function () {
+    //初始化商品列表js
+    evaluate.initMain([[${orderId}]])
+  })
+</script>
+</body>
+</html>

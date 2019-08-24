@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.evaluate.dao.EvaluateDaoMyBatis">
+
+  <select id="getEvaluatesByStatusAndProduct" resultType="EvaluateDTO">
+    SELECT
+      ev.id,
+      ev.score,
+      ev.updateTime,
+      ev.description,
+      me.id AS 'member.id',
+      me.userName AS 'member.userName',
+      ml.levelName AS 'member.level.levelName'
+    FROM
+      qsx_evaluate ev,
+      qsx_member me,
+      qsx_member_level ml
+    WHERE
+      ev.member_id = me.id AND
+      me.level_id = ml.id AND
+      <if test="status == ''">
+        ev.evaluateStatus = #{status} AND
+      </if>
+      ev.product_id = #{productId}
+  </select>
+
+  <select id="getEvaluateByMemberAndProductAndOrder" resultType="EvaluateDTO">
+    SELECT
+      ev.id,
+      ev.score,
+      ev.updateTime,
+      ev.description,
+      me.id AS 'member.id',
+      me.userName AS 'member.userName',
+      ml.levelName AS 'member.level.levelName'
+    FROM
+      qsx_evaluate ev,
+      qsx_member me,
+      qsx_member_level ml
+    WHERE
+      ev.member_id = me.id AND
+      me.level_id = ml.id AND
+      ev.member_id = #{memberId} AND
+      ev.product_id = #{productId} AND
+      ev.orderId = #{orderId}
+  </select>
+
+  <select id="getTotalScoreByProduct" resultType="Integer">
+    SELECT
+      SUM(ev.score)
+    FROM
+      qsx_evaluate ev
+    WHERE
+      ev.product_id = #{productId}
+  </select>
+
+  <select id="getEvaluateCountByProduct" resultType="Integer">
+    SELECT
+      COUNT(ev.id)
+    FROM
+      qsx_evaluate ev
+    WHERE
+      ev.product_id = #{productId}
+  </select>
+
+  <select id="getEvaluateCountByStatusAndProduct" resultType="Integer">
+    SELECT
+      COUNT(ev.id)
+    FROM
+      qsx_evaluate ev
+    WHERE
+      ev.evaluateStatus = #{status} AND
+      ev.product_id = #{productId}
+  </select>
+
+  <insert id="saveOrUpdateEvaluate">
+    INSERT INTO qsx_evaluate (
+      id,
+      member_id,
+      orderId,
+      product_id,
+      description,
+      score,
+      evaluateStatus,
+      createTime,
+      updateTime
+    )
+    VALUES (
+      #{id},
+      #{member.id},
+      #{orderId},
+      #{product.id},
+      #{description},
+      #{score},
+      #{evaluateStatus},
+      #{createTime},
+      #{updateTime}
+    )
+    ON DUPLICATE KEY UPDATE
+      description = #{description},
+      score = #{score},
+      evaluateStatus = #{evaluateStatus},
+      updateTime = #{updateTime}
+  </insert>
+
+</mapper>

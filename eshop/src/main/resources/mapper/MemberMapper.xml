@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.member.dao.MemberDaoMyBatis">
+
+  <select id="getMember" resultType="MemberDTO">
+    SELECT
+      me.id,
+      me.userName,
+      me.email,
+      me.point,
+      ml.id AS 'memberLevel.id',
+      ml.levelName AS 'memberLevel.levelName',
+      ml.discount AS 'memberLevel.discount',
+      ml.levelScore AS 'memberLevel.levelScore',
+      me.password,
+      me.defaultReceiverId,
+      me.memberStatus
+    FROM
+      qsx_member me,
+      qsx_member_level ml
+    WHERE
+      me.level_id = ml.id AND
+      me.userName = #{userName}
+  </select>
+
+  <select id="getMemberById" resultType="MemberDTO">
+    SELECT
+      me.id,
+      me.userName,
+      me.email,
+      me.point,
+      me.level_id AS 'memberLevel.id',
+      me.password,
+      me.defaultReceiverId,
+      me.memberStatus
+    FROM
+      qsx_member me
+    WHERE
+      me.id = #{memberId}
+  </select>
+
+  <select id="getMemberByEmail" resultType="MemberDTO">
+    SELECT
+      me.id,
+      me.userName,
+      me.email,
+      me.point,
+      me.level_id AS 'memberLevel.id',
+      me.password,
+      me.defaultReceiverId,
+      me.memberStatus
+    FROM
+      qsx_member me
+    WHERE
+      me.email = #{email}
+  </select>
+
+  <insert id="saveMember" parameterType="MemberDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO qsx_member (
+      userName,
+      email,
+      point,
+      level_id,
+      password,
+      defaultReceiverId,
+      memberStatus
+    )
+    VALUES (
+      #{userName},
+      #{email},
+      #{point},
+      #{memberLevel.id},
+      #{password},
+      #{defaultReceiverId},
+      #{memberStatus}
+    )
+  </insert>
+
+  <update id="updateMemberDefaultReceiverId">
+    UPDATE
+      qsx_member
+    SET
+      defaultReceiverId = #{defaultReceiverId}
+    WHERE
+      id = #{memberId}
+  </update>
+
+  <update id="updateMemberStatus">
+    UPDATE
+      qsx_member
+    SET
+      memberStatus = #{statusCode}
+    WHERE
+      id = #{memberId}
+  </update>
+
+  <delete id="deleteMember">
+    DELETE FROM
+      qsx_member
+    WHERE
+      id = #{memberId}
+  </delete>
+
+</mapper>
