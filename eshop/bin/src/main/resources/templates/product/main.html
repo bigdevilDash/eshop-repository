@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('商品详情页')"></header>
+<link th:href="@{/css/detail.css}" rel="stylesheet" type="text/css">
+<body class="grey_bg">
+<div th:replace="header::header-body"></div>
+<div class="mainContent comWidth">
+  <div class="detail-info white_bg">
+    <div class="detail-left fl">
+      <div>
+        <div id="preview" class="spec-preview">
+          <span class="jqzoom">
+            <img th:jqimg="${product.productImage}" th:src="${product.smallProductImage}"/>
+          </span>
+        </div>
+
+        <!--缩图开始-->
+        <div class="spec-scroll">
+          <a class="prev">&lt;</a> <a class="next">&gt;</a>
+          <div class="items">
+            <ul>
+              <li th:each="thumbnail : ${product.thumbnails}">
+                <img alt="佳能" th:bimg="${imagePath} + '/' + ${thumbnail}" th:src="${imagePath} + '/small_' + ${thumbnail}" onmousemove="preview(this);">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- 预览图部分 -->
+    </div>
+    <div class="detail-right fr">
+      <form id="cartItem" onSubmit="return false;">
+        <input type="hidden" name="productId" th:value="${product.id}">
+        <div class="right-box">
+          <div class="right-top">
+            <h3 th:text="${product.name}"></h3>
+            <dl>
+              <dt>价格</dt>
+              <dd class="price">
+                <span><i>¥</i><span th:text="${product.marketPrice}"></span></span>
+              </dd>
+            </dl>
+            <dl>
+              <dt>优惠价</dt>
+              <dd>
+                <i>¥</i><span th:text="${product.price}"></span></dd>
+            </dl>
+          </div>
+          <div class="right-middle cl">
+            <dl class="right-select" th:each="typeValue : ${product.values}">
+              <dt th:text="${typeValue.typeAttribute.name}"></dt>
+              <dd>
+                <a class="right-select-active productAttribute" href="javascript:" th:each="value : ${typeValue.values}" th:text="${value}"></a>
+              </dd>
+            </dl>
+            <input id="productQuantity" type="text" name="quantity" value="1" hidden="true">
+          </div>
+          <div class="right-bottom">
+            <div class="buyButton-box">
+              <a href="javascript:">
+                <div class="button-box-add">
+                  <input id="addCart" type="submit" value="加入购物车">
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="bottom-box comWidth">
+    <div class="leftArea fl">
+      <div class="left-item">
+        <div class="left-title">
+          <h3>同价位</h3>
+        </div>
+        <!-- 产品信息 -->
+        <div class="product-item" th:each="product : ${products}">
+          <div class="picBox">
+            <a href="#">
+              <img th:src="${product.productImage}" alt="iphone">
+            </a>
+          </div>
+          <p th:text="${product.name}"></p>
+          <span>￥<span th:text="${product.price}"></span></span>
+        </div>
+      </div>
+    </div>
+    <div class="rightArea fr">
+      <div class="rated">
+        <!--代码部分begin-->
+        <div class="tab1" id="tab1">
+          <div class="menu">
+            <ul>
+              <li id="one1" class="selected" onclick="setTab('one',1)">产品介绍</li>
+              <li id="one2" onclick="setTab('one',2)">产品评价</li>
+            </ul>
+          </div>
+          <div class="menudiv">
+            <div id="con_one_1" style="display: block;">
+              <div class="info_text" th:utext="${product.description}"></div>
+            </div>
+            <div id="con_one_2" style="display: none;">
+              <div class="rated-star">
+                <h4>商品评价</h4>
+                <div class="rated-progress">
+                  <div class="rated-point fl">
+                    <span th:text="${score}"></span>分
+                  </div>
+                  <div class="rated-progress-bar fl">
+                    <div id="point" class="point" th:text="${score}"><i></i>
+                    </div>
+                    <div class="bar">
+                      <ul>
+                        <li>非常不满</li>
+                        <li>不满意</li>
+                        <li>一般</li>
+                        <li>满意</li>
+                        <li>非常满意</li>
+                      </ul>
+                    </div>
+                    <div class="hr-10"></div>
+                    <p>共<span th:text="${totalEvaluateCount}"></span>位明博商城网友参与评分</p>
+                  </div>
+                </div>
+              </div>
+              <div class="middle-tab">
+                <ul>
+                  <li>
+                    <a class=" evaluateStatus active " data-value=" " href="javascript:">全部(<span th:text="${totalEvaluateCount}"></span>)</a>
+                  </li>
+                  <li>
+                    <a class=" evaluateStatus  " data-value="满意" href="javascript:">满意(<span th:text="${satisfiedEvaluateCount}"></span>)</a>
+                  </li>
+                  <li>
+                    <a class=" evaluateStatus " data-value="一般" href="javascript:">一般(<span th:text="${commonlyEvaluateCount}"></span>)</a>
+                  </li>
+                  <li>
+                    <a class=" evaluateStatus " data-value="不满意" href="javascript:">不满意(<span th:text="${disSatisfiedEvaluateCount}"></span>)</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="evaluateListPanel"></div>
+            </div>
+            <!-- 评价部分结束 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+<script th:src="@{/js/product.js}"></script>
+<script>
+  var g_rootPath = '[[${#servletContext.contextPath}]]'
+  $(function () {
+    $('#searchPanel').show()
+    //初始化商品列表js
+    product.initMain([[${product.id}]])
+  })
+
+  function setTab (name, cursel) {
+    cursel_0 = cursel
+    for (var i = 1; i <= 2; i++) {
+      var menu = document.getElementById(name + i)
+      var menudiv = document.getElementById('con_' + name + '_' + i)
+      if (i == cursel) {
+        menu.className = 'off'
+        menudiv.style.display = 'block'
+      } else {
+        menu.className = ''
+        menudiv.style.display = 'none'
+      }
+    }
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.member.dao.MemberLevelDaoMyBatis">
+
+  <select id="getMemberLevelByName" resultType="MemberLevelDTO">
+    SELECT
+      ml.id,
+      ml.levelName,
+      ml.discount,
+      ml.levelScore
+    FROM
+      qsx_member_level ml
+    WHERE
+      ml.levelName = #{levelName}
+  </select>
+
+</mapper>

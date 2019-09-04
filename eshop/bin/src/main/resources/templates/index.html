@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('首页')"></header>
+<body>
+<div th:replace="header::header-body"></div>
+<div class="wrap">
+  <div id="categoryItem" class="all-sort-list" style="height:451px;float: left;">
+    <div class="item bo" th:each="productCategory : ${productCategories}">
+      <h3>
+        <span>·</span><a href="#" th:text="${productCategory.name}"></a>
+      </h3>
+      <div class="item-list clearfix">
+        <div class="close">x</div>
+        <div class="subitem">
+          <dl class="fore1" th:each="child : ${productCategory.children}">
+            <dt>
+              <a href="#" th:text="${child.name}"></a>
+            </dt>
+            <dd>
+              <em th:each="grandson : ${child.children}"><a th:href="@{/front/product/list(categoryId=${grandson.id})}" th:text="${grandson.name}"></a></em>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="banner comWidth">
+    <div id="banner_tabs" class="flexslider banner-bar fr">
+      <ul class="slides imgBox">
+        <li th:each="advertisement : ${advertisements}">
+          <a title="" target="_blank"> <img width="1000" height="454" th:src="@{/images/{image}(image=${advertisement.image})}"></a>
+        </li>
+      </ul>
+      <ul class="flex-direction-nav">
+        <li><a class="flex-prev" href="javascript:">Previous</a></li>
+        <li><a class="flex-next" href="javascript:">Next</a></li>
+      </ul>
+      <ol id="bannerCtrl" class="flex-control-nav flex-control-paging num">
+        <li><a>1</a></li>
+        <li><a>2</a></li>
+        <li><a>2</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="mainList comWidth cl">
+  <div class="mainList-box">
+    <div class="listTitle">
+      <div class="left fl">
+        <h1 class="fl">热门商品</h1>
+      </div>
+    </div>
+    <div class="listContent">
+      <div class="banner-bar fl cl">
+        <ul class="imgBox">
+          <li><a href="#"><img th:src="@{/images/hotProduct.jpg}" alt="产品宣传图"></a></li>
+        </ul>
+      </div>
+
+      <div class="list-shopping">
+        <ul>
+          <!--遍历热门商品列表 -->
+          <li th:each="hotProduct : ${hotProducts}">
+            <div class="bigPic">
+              <a href="javascript:"><img class="picImg" th:src="${hotProduct.productImage}"></a>
+              <a class="bigPic-des" th:href="@{/front/product/main(productId=${hotProduct.id})}" th:text="${hotProduct.name}">
+                <span th:text="${hotProduct.price}">元</span>
+              </a>
+            </div>
+            <div class="smallPic">
+              <a href="javascript:" class="sPic"><img th:src="${hotProduct.smallProductImage}"></a>
+              <a href="javascript:" class="sPic-des" th:text="${hotProduct.name}"></a>
+              <h3 class="smallPic-price">
+                <span>￥</span><span th:text="${hotProduct.price}"></span></h3>
+              <a th:href="@{/front/product/main(productId=${hotProduct.id})}"><h4>查看详情</h4></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mainList-box">
+    <div class="listTitle">
+      <div class="left fl">
+        <h1 class="fl">新上架商品</h1>
+      </div>
+    </div>
+    <div class="listContent">
+      <div class="banner-bar fl cl">
+        <ul class="imgBox">
+          <li><a href="#"><img th:src="@{/images/newProduct.jpg}" alt="产品宣传图"></a></li>
+        </ul>
+      </div>
+      <div class="list-shopping">
+        <ul>
+          <!--遍历新品商品列表 -->
+          <li th:each="newProduct : ${newProducts}">
+            <div class="bigPic">
+              <a href="javascript:"><img class="picImg" th:src="${newProduct.productImage}"></a>
+              <a class="bigPic-des" th:href="@{/front/product/main(productId=${newProduct.id})}" th:text="${newProduct.name}">
+                <span th:text="${newProduct.price}">元</span>
+              </a>
+            </div>
+            <div class="smallPic">
+              <a href="javascript:" class="sPic"><img th:src="${newProduct.smallProductImage}"></a>
+              <a href="javascript:" class="sPic-des" th:text="${newProduct.name}"></a>
+              <h3 class="smallPic-price">
+                <span>￥</span><span th:text="${newProduct.price}"></span></h3>
+              <a th:href="@{/front/product/main(productId=${newProduct.id})}"><h4>查看详情</h4></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- listContent end -->
+  </div>
+  <div class="mainList-box">
+    <div class="listTitle">
+      <div class="left fl">
+        <h1 class="fl">精品商品</h1>
+      </div>
+    </div>
+    <div class="listContent">
+      <div class="banner-bar fl cl">
+        <ul class="imgBox">
+          <li><a href="#"><img th:src="@{/images/bestProduct.jpg}" alt="产品宣传图"></a></li>
+        </ul>
+      </div>
+      <div class="list-shopping">
+        <ul>
+          <!--遍历精品商品列表 -->
+          <li th:each="bestProduct : ${bestProducts}">
+            <div class="bigPic">
+              <a href="javascript:"><img class="picImg" th:src="${bestProduct.productImage}"></a>
+              <a class="bigPic-des" th:href="@{/front/product/main(productId=${bestProduct.id})}" th:text="${bestProduct.name}">
+                <span th:text="${bestProduct.price}">元</span>
+              </a>
+            </div>
+            <div class="smallPic">
+              <a href="javascript:" class="sPic"><img th:src="${bestProduct.smallProductImage}"></a>
+              <a href="javascript:" class="sPic-des" th:text="${bestProduct.name}"></a>
+              <h3 class="smallPic-price">
+                <span>￥</span><span th:text="${bestProduct.price}"></span></h3>
+              <a th:href="@{/front/product/main(productId=${bestProduct.id})}"><h4>查看详情</h4></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+<script type="text/javascript">
+  $(function () {
+    $('#searchPanel').show()
+    var bannerSlider = new Slider($('#banner_tabs'), {
+      time: 5000,
+      delay: 400,
+      event: 'hover',
+      auto: true,
+      mode: 'fade',
+      controller: $('#bannerCtrl'),
+      activeControllerCls: 'active'
+    })
+    $('#banner_tabs .flex-prev').click(function () {
+      bannerSlider.prev()
+    })
+    $('#banner_tabs .flex-next').click(function () {
+      bannerSlider.next()
+    })
+    //鼠标移动到分类上面触发事件
+    $('#categoryItem > .item').hover(function () {
+      var eq = $('#categoryItem > .item').index(this), //获取当前滑过是第几个元素
+        h = $('#categoryItem').offset().top, //获取当前下拉菜单距离窗口多少像素
+        s = $(window).scrollTop(), //获取游览器滚动了多少高度
+        i = $(this).offset().top, //当前元素滑过距离窗口多少像素
+        item = $(this).children('.item-list').height(), //下拉菜单子类内容容器的高度
+        sort = $('#categoryItem').height() //父类分类列表容器的高度
+      //如果子类的高度小于父类的高度
+      if (item < sort) {
+        if (eq == 0) {
+          $(this).children('.item-list').css('top', (i - h))
+        } else {
+          $(this).children('.item-list').css('top', (i - h) + 1)
+        }
+      } else {
+        //判断子类的显示位置，如果滚动的高度大于所有分类列表容器的高度
+        if (s > h) {
+          //则 继续判断当前滑过容器的位置 是否有一半超出窗口一半在窗口内显示的Bug,
+          if (i - s > 0) {
+            $(this).children('.item-list').css('top', (s - h) + 2)
+          } else {
+            $(this).children('.item-list').css('top', (s - h) - (-(i - s)) + 2)
+          }
+        } else {
+          $(this).children('.item-list').css('top', 3)
+        }
+      }
+
+      $(this).addClass('hover')
+      $(this).children('.item-list').css('display', 'block')
+    }, function () {
+      $(this).removeClass('hover')
+      $(this).children('.item-list').css('display', 'none')
+    })
+
+    $('.item > .item-list > .close').click(function () {
+      $(this).parent().parent().removeClass('hover')
+      $(this).parent().hide()
+    })
+  })
+</script>
+</body>
+</html>

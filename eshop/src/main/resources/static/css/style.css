@@ -38,7 +38,27 @@
 	width: 100%;
 	background-color: #c81623;
 	overflow: hidden;
+position: relative;	
+	
 }
+
+
+.logo input{
+position: absolute;
+left:780px;
+	top:30px;
+	height:25px;
+}
+
+.logo button{
+	position: absolute;
+	left:937px;
+	top:30px;
+	height:25px;
+	width:30px;
+}
+
+
 
 .logo a {
 	color: #fff;
@@ -50,9 +70,9 @@
 }
 
 .searchBar {
-	margin-right: 59px;
-	margin-top: 23px;
-	height: 35px;
+	padding-right: 59px;
+	padding-top: 23px;
+	height: 39px;
 	font-size: 14px;
 	/*width: 429px;*/
 }
@@ -983,7 +1003,7 @@ a:hover, a:active {
 	background: url(../images/ad_ctr.png) no-repeat;
 	position: absolute;
 	top: 50%;
-	z-index: 10;
+	z-index: 5;
 	cursor: pointer;
 	opacity: 0;
 	filter: alpha(opacity = 0);

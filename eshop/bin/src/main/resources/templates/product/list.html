@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('商品列表页')"></header>
+<link th:href="@{/css/product-select.css}" rel="stylesheet" type="text/css">
+<body>
+<div th:replace="header::header-body"></div>
+<div class="mainContent comWidth">
+  <div class="leftArea fl">
+    <!-- 商品分类展开列表 -->
+    <div th:each="productCategory : ${productCategories}">
+      <div class="left-title">
+        <h3 th:text="${productCategory.name}"></h3>
+      </div>
+      <div class="left-item" th:each="child : ${productCategory.children}">
+        <dl>
+          <dt th:text="${child.name}"></dt>
+          <dd>
+            <a th:each="grandson : ${child.children}" th:href="@{/front/product/list(categoryId=${grandson.id})}" th:text="${grandson.name}"></a>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="rightArea fr">
+    <div class="selectMenuBox">
+      <form method="get" action="list" name="pagingForm">
+        <div class="selectMenu">
+          <dl th:if="${not #lists.isEmpty(brands)}">
+            <dt>品牌</dt>
+            <!-- 遍历品牌列表 -->
+            <dd th:each="brand : ${brands}">
+              <a class="searchItem" data-type="brand" th:data-id="${brand.id}" href="#" th:text="${brand.name}"></a>
+            </dd>
+          </dl>
+          <!-- 商品属性筛选列表 -->
+          <dl th:each="productTypeAttribute : ${productTypeAttributes}">
+            <dt th:text="${productTypeAttribute.name}"></dt>
+            <dd th:each="value : ${productTypeAttribute.values}">
+              <a class="searchItem" href="#" th:text="${value}"></a>
+            </dd>
+          </dl>
+        </div>
+      </form>
+    </div>
+    <div id="productList" class="selectInfo">
+      <div class="selectInfo-title">
+        <div class="amount fr">
+          共<span class="amount2" th:text="${#lists.size(products)}"></span>件商品
+        </div>
+      </div>
+      <div class="item-info">
+        <ul>
+          <!-- 商品列表 -->
+          <li class="item-pic" th:each="product : ${products}">
+            <div class="picBox">
+              <a th:href="@{/front/product/main(productId=${product.id})}"><img th:src="${product.productImage}" alt="商品-手机"></a>
+            </div>
+            <a th:href="@{/front/product/main(productId=${product.id})}" class="products-des" th:text="${product.name}"></a>
+            <div class="cur">
+              <span class="products-price">￥<span th:text="${product.marketPrice}"></span></span><a href="#"><span th:text="${product.evaluateCount}"></span>条</a><em>评论</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+<script th:src="@{/js/product.js}"></script>
+<script>
+  $(function () {
+    $('#searchPanel').show()
+    //初始化商品列表js
+    product.initList([[${categoryId}]])
+  })
+</script>
+</body>
+
+</html>

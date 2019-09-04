@@ -1,0 +1,394 @@
+/*****************************************************************************
+ * Copyright (c) 2015, www.qingshixun.com
+ *
+ * All rights reserved
+ *
+ *****************************************************************************/
+/**
+ *  商品选择的样式
+ * 
+ * @author QingShiXun
+ * 
+ * @version 1.0
+ */
+.mainContent {
+    overflow: hidden;
+    margin-top: 17px;
+}
+
+.leftArea {
+    font-family: 微软雅黑;
+    width: 183px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: rgb(243, 243, 243);
+    border: 1px solid rgb(215, 215, 215);
+}
+
+.left-title h3 {
+    text-align: center;
+    line-height: 35px;
+    border-bottom: 1px solid #D7D7D7;
+}
+
+.left-item {
+    padding: 0 20px;
+    _padding: 0 20px 0 20px;
+    /*ie6 hack*/
+    border-bottom: 1px dotted #D7D7D7;
+    margin-bottom: -1px;
+}
+
+.left-item dt {
+    font-weight: bold;
+    line-height: 35px;
+    _width: 143px;
+    /*ie6 hack*/
+}
+
+.left-item dd {
+    overflow: hidden;
+    margin-bottom: 10px;
+    text-indent: 1em;
+    _margin-bottom: 25px;
+    /*ie6 hack*/
+}
+
+.left-item dd a {
+    display: block;
+    line-height: 22px;
+    font-size: 12px;
+}
+
+.left-item dd a:hover {
+    text-decoration: underline;
+}
+
+
+/*热门商品*/
+
+.hotProduct {
+    background-color: #fff !important;
+    border-top: 1px solid #D7D7D7;
+    overflow: hidden;
+}
+
+.hot-img {
+    width: 70px;
+}
+
+.hot-img img {
+    padding: 20px 10px 20px 20px;
+}
+
+.hot-des {
+    width: 96px;
+    padding-right: 13px;
+    margin-top: 20px;
+}
+
+.hot-des a {
+    font-size: 12px;
+    width: 100%;
+}
+
+.hot-price {
+    font-size: 12px;
+}
+
+.hotItem {
+    clear: both;
+}
+
+
+/*右边区域*/
+
+.rightArea {
+    width: 1020px;
+}
+
+
+/*筛选菜单*/
+
+.selectMenu {
+    width: auto;
+}
+
+.selectMenu dl {
+    overflow: hidden;
+    border-bottom: 1px dotted #D7D7D7;
+    padding: 10px 0;
+    _clear: both;
+}
+
+.selectMenu dl a {
+    display: block;
+}
+
+.selectMenu dl:first-child {
+    border-bottom: 1px solid #D7D7D7;
+}
+
+.selectMenu dt,
+.selectMenu dd {
+    float: left;
+}
+
+.selectMenu dd {
+    width: auto;
+    margin-right: 25px;
+    line-height: 22px;
+}
+
+
+.selectMenu dt {
+    width: 90px;
+    margin-right: 40px;
+    text-align: right;
+    color: #999999;
+}
+
+.selectMenu dl .isLimit {
+    color: #FFF;
+    display: inline-block;
+    background-color: #c81623;
+    padding: 0 2px;
+}
+
+.select-more {
+    width: 40px;
+    color: black !important;
+    float: right;
+    margin-right: 35px;
+    background: url(../images/select-arrow-down.gif) no-repeat right center;
+}
+
+.selectMenu dl select {
+    border: 1px solid #D7D7D7;
+    margin-right: 10px;
+}
+
+
+/*筛选产品信息*/
+
+.selectInfo-title {
+    height: 30px;
+    margin-top: 20px;
+    border: 1px solid #d7d7d7;
+    background-color: #F5F5F5;
+}
+
+.selectInfo-title p {
+    line-height: 30px;
+    margin: 0 12px;
+    font-size: 12px;
+}
+
+.select-box {
+    width: 100px;
+    overflow: hidden;
+    border: 1px solid #d7d7d7;
+    background: url(../images/select-arrow.jpg) no-repeat 80px center #fff;
+    margin-top: 3px;
+}
+
+.select-box option {
+    width: 100px;
+}
+
+.selectInfo-title select {
+    line-height: 22px;
+    text-indent: 8px;
+    height: 22px;
+    width: 120px;
+    font-size: 12px;
+}
+
+.amount {
+    line-height: 30px;
+    color: #999;
+    font-size: 12px;
+    margin-right: 80px;
+}
+
+.amount input {
+    margin-top: 9px;
+    float: left;
+}
+
+.amount .amount2 {
+    font-weight: bold;
+    color: #D70000;
+}
+
+.amount label {
+    margin-right: 12px;
+    margin-left: 3px;
+    color: black;
+}
+
+
+/*商品信息*/
+
+.item-info {
+	margin-top: 10px;
+    width: 100%;
+}
+
+.item-info ul li {
+    float: left;
+    width: 253px;
+    height: 278px;
+    position: relative;
+    border: 1px solid #fff;
+}
+
+.item-pic:hover {
+    border: 1px solid #D7D7D7;
+    z-index: 999;
+    width: 253px;
+    height: 278px;
+    -webkit-box-shadow: 3px 3px 3px #ccc;
+    -moz-box-shadow: 3px 3px 3px #ccc;
+    box-shadow: 3px 3px 3px #ccc
+}
+
+.picBox img {
+    padding-left: 20px;
+}
+
+.item-info .products-des {
+    font-size: 13px;
+    display: block;
+    line-height: 18px;
+    padding: 0 30px;
+}
+
+.products-des:hover {
+    text-decoration: underline;
+}
+
+.cur {
+    padding-left: 60px;
+    margin: 10px 0;
+}
+
+.cur span {
+    line-height: 15px;
+    font-weight: bold;
+    color: #D70000;
+}
+
+.cur em {
+    font-style: normal;
+    color: #666;
+}
+
+.cur a {
+    color: #c81623;
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.addBuy a {
+    color: #c81623;
+    padding-left: 20px;
+}
+
+.comment a {
+    color: #085C9B;
+}
+
+
+/*页码区域*/
+
+.pagesBox {
+    height: 40px;
+    padding-left: 230px;
+}
+
+.pagesBox li {
+    float: left;
+    height: 25px;
+    margin-right: 8px;
+    margin-top: 7px;
+}
+
+.pagesBox li a {
+    color: black;
+    padding: 0 12px;
+    display: block;
+    line-height: 25px;
+    border: 1px solid #C9C9C9;
+}
+
+.pagesBox input {
+    font-size: 12px !important;
+    width: 35px;
+    height: 20px;
+    text-align: center;
+    color: #666666;
+    border: 1px solid #C9C9C9;
+}
+
+.pagesBox-jump {
+    margin-top: 7px;
+    color: #666666;
+    font-size: 12px !important;
+}
+
+.pagesBox-jump button {
+    font-size: 12px;
+    color: #666666;
+    border: 1px solid #C9C9C9;
+    background-color: #E8E8E8;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+/*不可点击状态*/
+
+.unClick {
+    color: #666 !important;
+    cursor: default;
+}
+
+
+/*点击后的状态*/
+
+.pagesBox-active {
+    background-color: #c81623 !important;
+    color: #FFF !important;
+    border: 1px solid #B1191A !important;
+}
+
+.addBuy {
+    background: url(../images/buycar.jpg) 5px center no-repeat;
+    margin-left: 80px;
+    border: 1px solid #C3D5E7;
+    width: 88px;
+}
+
+.addBuy a {
+    font-size: 12px;
+}
+
+.hot-tag {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    background: url(../images/hotTag_bg.png) center no-repeat #FFF;
+}
+.productSelect{
+	 color: #c81623;
+	}

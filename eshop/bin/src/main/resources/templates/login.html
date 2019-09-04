@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>登录</title>
+  <link rel="stylesheet" th:href="@{/css/reset.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+</head>
+<body class="grey_bg">
+<div class="header">
+  <div class="logo">
+    <div class="comWidth">
+      <div class="logo_icon fl">
+        <a th:href="@{/front/index}">
+          <img th:src="@{/images/logo.png}" alt="明博商城网">
+        </a>
+      </div>
+      <h2>欢迎登录</h2>
+    </div>
+  </div>
+  <div class="mainContent">
+    <div class="comWidth loginBox">
+      <form class="form-vertical" th:action="@{/front/login}" method="post">
+        <p>用户名</p>
+        <input type="text" name="username" autocomplete="off" value="tiger">
+        <p>密码</p>
+        <input type="password" name="password" autocomplete="off" value="tiger">
+        <div class="alert alert-warning fade in text-center text-danger text-error" th:if="${param.error}" style="text-align: center; padding-bottom: 13px;">
+          <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
+        </div>
+        <input type="submit" value="登录">
+      </form>
+      <div class="link-reg">
+        <a th:href="@{/front/register}">免费注册&gt;&gt;</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer cl">
+  <div class="copy-info">
+    <p>
+      <a href="#">明博简介|</a><a href="#">明博公告 |</a><a href="#">招纳贤士 |</a><a
+      href="#">联系我们 |</a>客服热线：400-675-1234
+    </p>
+    <p>Copyright&copy;2006-2016 明博科技版权所有</p>
+  </div>
+  <div class="copy-images">
+    <a href="#"><img th:src="@{/images/icon/img1.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img2.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img3.png}" alt="版权区图片"></a>
+    <a href="#"><img th:src="@{/images/icon/img4.jpg}" alt="版权区图片"></a>
+  </div>
+</div>
+</body>
+
+</html>

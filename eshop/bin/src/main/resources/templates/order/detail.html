@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header::headerFragment('订单详情')"></header>
+<link rel="stylesheet" th:href="@{/css/product.css}" type="text/css">
+<body>
+<div th:replace="header::header-body"></div>
+<div class="mainContent comWidth">
+  <div class="leftArea fl">
+    <!-- 商品分类展开页面总共分为三层 -->
+    <div th:each="productCategory : ${productCategories}">
+      <div class="left-title">
+        <h3 th:text="${productCategory.name}"></h3>
+      </div>
+      <div class="left-item" th:each="child : ${productCategory.children}">
+        <dl>
+          <dt th:text="${child.name}"></dt>
+          <dd>
+            <a th:each="grandson : ${child.children}" th:href="@{/front/product/list(categoryId=${grandson.id})}" th:text="${grandson.name}"></a>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="rightArea fr">
+    <h2>评价晒单</h2>
+    <div class="product_list">
+      <!-- 订单中的商品显示页面 -->
+      <ul class="product_con" th:each="orderItem : ${orderItems}">
+        <li class="pro">
+          <img th:src="${orderItem.product.productImage}">
+          <span th:text="${orderItem.product.name}"></span>
+        </li>
+        <li><a th:href="@{'/front/product/evaluate/'+${orderItem.product.id}+'/'+${orderId}}">评价晒单</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div th:replace="footer::footer-body"></div>
+<div th:replace="footer::footer"></div>
+</body>
+</html>

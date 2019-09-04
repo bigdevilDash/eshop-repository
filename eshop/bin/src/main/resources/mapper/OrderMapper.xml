@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.order.dao.OrderDaoMyBatis">
+  
+  <select id="getOrdersByMember" resultType="OrderDTO">
+    SELECT 
+      ord.id,
+      ord.totalAmount,
+      ord.productTotalQuantity,
+      ds.code AS 'status.code',
+      ds.name AS 'status.name',
+      ord.productTotalPrice,
+      ord.member_id AS 'member.id',
+      ord.receiver_id AS 'receiver.id',
+      ord.createTime,
+      ord.orderNum,
+      ord.updateTime,
+      ord.orderChannel AS 'orderChannel.code'
+    FROM 
+      qsx_order ord,
+      qsx_dictionary ds
+    WHERE
+      ord.orderStatus = ds.code AND
+      ord.member_id = #{memberId}
+  </select>
+
+  <select id="getOrder" resultType="OrderDTO">
+    SELECT
+      ord.id,
+      ord.totalAmount,
+      ord.productTotalQuantity,
+      ord.orderStatus AS 'status.code',
+      ord.productTotalPrice,
+      ord.member_id AS 'member.id',
+      ord.receiver_id AS 'receiver.id',
+      ord.createTime,
+      ord.orderNum,
+      ord.updateTime,
+      ord.orderChannel AS 'orderChannel.code'
+    FROM
+      qsx_order ord
+    WHERE
+      ord.id = #{orderId}
+  </select>
+
+  <insert id="saveOrUpdateOrder" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="OrderDTO">
+    INSERT INTO qsx_order (
+      id,
+      totalAmount,
+      productTotalQuantity,
+      orderStatus,
+      productTotalPrice,
+      member_id,
+      receiver_id,
+      createTime,
+      orderNum,
+      updateTime,
+      orderChannel
+    ) 
+    VALUES (
+      #{id},
+      #{totalAmount},
+      #{productTotalQuantity},
+      #{status.code},
+      #{productTotalPrice},
+      #{member.id},
+      #{receiver.id},
+      #{createTime},
+      #{orderNum},
+      #{updateTime},
+      #{orderChannel.code}
+    )
+    ON DUPLICATE KEY UPDATE
+      totalAmount = #{totalAmount},
+      productTotalQuantity = #{productTotalQuantity},
+      orderStatus = #{status.code},
+      productTotalPrice = #{productTotalPrice},
+      orderNum = #{orderNum},
+      updateTime = #{updateTime},
+      orderChannel = #{orderChannel.code}
+  </insert>
+
+  <update id="updateOrderStatus">
+    UPDATE
+      qsx_order
+    SET
+      orderStatus = #{statusCode}
+    WHERE
+      id = #{orderId}
+  </update>
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingshixun.project.eshop.module.receiver.dao.ReceiverDaoMyBatis">
+
+  <select id="getReceiversByMember" resultType="ReceiverDTO">
+    SELECT
+      re.id,
+      re.name,
+      re.areaPath,
+      re.address,
+      re.phone,
+      re.mobile,
+      re.zipCode
+    FROM
+      qsx_receiver re
+    WHERE
+      re.member_id = #{memberId}
+  </select>
+
+  <select id="getReceiver" resultType="ReceiverDTO">
+    SELECT
+      re.id,
+      re.name,
+      re.areaPath,
+      re.address,
+      re.phone,
+      re.mobile,
+      re.zipCode
+    FROM
+      qsx_receiver re
+    WHERE
+      re.id = #{receiverId}
+  </select>
+
+  <insert id="saveOrUpdateReceiver" keyProperty="id" keyColumn="id" useGeneratedKeys="true" parameterType="ReceiverDTO">
+    INSERT INTO qsx_receiver (
+      id,
+      name,
+      areaPath,
+      address,
+      phone,
+      member_id
+    )
+    VALUES (
+      #{id},
+      #{name},
+      #{areaPath},
+      #{address},
+      #{phone},
+      #{member.id}
+    )
+    ON DUPLICATE KEY UPDATE
+      name = #{name},
+      areaPath = #{areaPath},
+      address = #{address},
+      phone = #{phone}
+  </insert>
+
+  <delete id="deleteReceiver">
+    DELETE FROM
+      qsx_receiver
+    WHERE
+      id = #{receiverId}
+  </delete>
+
+</mapper>

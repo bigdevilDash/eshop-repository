@@ -18,6 +18,8 @@ var product = (function () {
   var status
   var brandId = ''
   var categoryId = ''
+	  
+
 
   function initList (categoryId) {
     categoryId = categoryId

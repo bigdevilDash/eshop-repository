@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/account.css}" type="text/css">
+<link th:href="@{/plugins/jquery-validationEngine/validationEngine.jquery.css}" rel="stylesheet"/>
+
+<header>
+  <a href="javascript:" class="js-modal-close close">×</a>
+  <h3>地址编辑</h3>
+</header>
+
+<form id="receiverForm" name="receiver" role="form" th:action="@{/front/order/receiver/save/(orderId=${orderId})}" method="post" onSubmit="return false;">
+  <input type="hidden" name="id" th:value="${receiver.id }"/>
+  <div>
+    <div class="content">
+      <label>*<span>选择地区:</span> <a href="javascript:">
+        <input name="areaPath" th:value="${receiver.areaPath}" type="text" id="city" readonly="true" placeholder="-选择地区-"/>
+      </a>
+      </label>
+      <label class="detail-add">*<span>详细地址:</span>
+        <input class="form-control validate[required]" name="address" th:value="${receiver.address}" maxlength="50"/>
+      </label>
+      <label class="consignee">*<span>收&nbsp;&nbsp;货&nbsp;&nbsp;人:</span>
+        <input class="form-control validate[required]" name="name" th:value="${receiver.name}" maxlength="50"/>
+      </label>
+      <label class="phone-num">*<span>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机:</span>
+        <input class="form-control validate[required]" name="phone" th:value="${receiver.phone}" maxlength="50"/>
+      </label>
+    </div>
+  </div>
+</form>
+<footer>
+  <a href="javascript:" class="btn btn-small save-receiver-btn">确定</a> <a href="javascript:" class="btn btn-small js-modal-close">取消</a>
+</footer>
+
+<script th:src="@{/plugins/jquery-1.10.2.js}"></script>
+<script th:src="@{/plugins/jquery.form.js}"></script>
+<!-- 表单验证插件 下载地址：https://github.com/posabsolute/jQuery-Validation-Engine-->
+<script th:src="@{/plugins/jquery-validationEngine/languages/jquery.validationEngine-zh_CN.js}"></script>
+<script th:src="@{/plugins/jquery-validationEngine/jquery.validationEngine.js}"></script>
+<script th:src="@{/plugins/popt.js}"></script>
+<script th:src="@{/plugins/cityJson.js}"></script>
+<script th:src="@{/plugins/citySet.js}"></script>
+<script th:src="@{/js/receiver.js}"></script>
+
+<script type="text/javascript">
+  $(function () {
+    //初始化收货人表单js
+    receiver.initForm()
+  })
+</script>

@@ -29,6 +29,12 @@
       </div>
     </div>
     <div class="logo">
+    
+    <form class="form-search" th:action="@{/front/search}" method="post">
+        <input type="text" name="searchtext" class="search" >
+        <button type="submit" >搜索</button>
+    </form>
+    
       <div class="comWidth">
         <div class="logo_icon fl">
           <a th:href="@{/front/index}"><img th:src="@{/images/logo.png}" alt="明博商城网"></a>

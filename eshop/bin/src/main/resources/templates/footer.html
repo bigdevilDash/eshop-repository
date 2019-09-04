@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer-body">
+  <div class="footer cl">
+    <div class="copy-info">
+      <p>
+        <a href="#">明博简介|</a><a href="#">明博公告 |</a><a href="#">招纳贤士 |</a><a href="#">联系我们 |</a>客服热线：400-675-1234
+      </p>
+      <p>Copyright&copy;2006-2016 明博学生版权所有 &nbsp;&nbsp;京ICP备09037834号 &nbsp;&nbsp;京ICP证B1034-8373号 某市公安局XX分局备案编号：123456789123</p>
+    </div>
+    <div class="copy-images">
+      <a href="#"><img th:src="@{/images/icon/img1.png}" alt="版权区图片"></a>
+      <a href="#"><img th:src="@{/images/icon/img2.png}" alt="版权区图片"></a>
+      <a href="#"><img th:src="@{/images/icon/img3.png}" alt="版权区图片"></a>
+      <a href="#"><img th:src="@{/images/icon/img4.jpg}" alt="版权区图片"></a>
+    </div>
+  </div>
+</div>
+<body th:fragment="footer">
+<script th:src="@{/plugins/jquery.jqzoom.js}"></script>
+<script th:src="@{/plugins/toastr/toastr.js}"></script>
+<script th:src="@{/plugins/alert-confirm.js}"></script>
+<script th:src="@{/plugins/jquery.form.js}"></script>
+<script th:src="@{/plugins/slider.js}"></script>
+<script th:src="@{/plugins/jquery-validationEngine/languages/jquery.validationEngine-zh_CN.js}"></script>
+<script th:src="@{/plugins/base.js}"></script>
+</body>
+</html>

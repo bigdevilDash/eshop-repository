@@ -1,0 +1,26 @@
+<!-- 评论列表 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${#lists.isEmpty(evaluates)}">没有评论</div>
+<div class="rated-item cl" th:each="evaluate : ${evaluates}">
+  <div class="user-info fl" style="width:8%">
+    <div class="user-name" th:text="${evaluate.member.userName}"></div>
+    <div class="user-level" th:text="${evaluate.member.level.levelName}"></div>
+  </div>
+  <div class="user-rated fl">
+    <!-- 评价内容 -->
+    <div class="user-rated-star fl">
+      <span class="c-value-no c-value-${item.score}"><em></em></span>
+      <h5><span th:text="${evaluate.score}"></span>分</h5>
+      <p class="time" th:text="${evaluate.updateTime}"></p>
+    </div>
+    <p class="cl" th:utext="${evaluate.description}"></p>
+  </div>
+</div>
+<script th:src="@{/js/evaluate.js}"></script>
+<script>
+  $(function () {
+    //初始化评论列表js
+    evaluate.initList()
+  })
+</script>
+</html>
